@@ -10,6 +10,6 @@ This project is also a part of a graduation work, at the Centro de Informática 
 
 ## Credits
 
-    - **Author:** Abhner Araujo (afga@cin.ufpe.br) 
-    - **Advisor:** Sergio Queiroz (srmq@cin.ufpe.br)
+* Author: Abhner Araujo (afga@cin.ufpe.br) 
+* Advisor: Sergio Queiroz (srmq@cin.ufpe.br)
 

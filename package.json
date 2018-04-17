@@ -1,0 +1,24 @@
+{
+  "name": "qa-extractor",
+  "version": "1.0.0",
+  "description": "A question / answer extrator NODEJs API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abhnerAraujo/QAExtractor.git"
+  },
+  "keywords": [
+    "chatbot",
+    "question&answer",
+    "Q&A"
+  ],
+  "author": "abhnerAraujo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/abhnerAraujo/QAExtractor/issues"
+  },
+  "homepage": "https://github.com/abhnerAraujo/QAExtractor#readme"
+}
