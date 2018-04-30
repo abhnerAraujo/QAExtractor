@@ -8,6 +8,12 @@ This project is also a part of a graduation work, at the Centro de Informática 
 
 * **LinguaKit** - A Natural Language Processing tool (Perl)
 
+### Install
+
+- Download this repository
+- npm install
+- Put Linguakit entire project inside assets folder
+
 ## Credits
 
     - **Author:** Abhner Araujo (afga@cin.ufpe.br) 
