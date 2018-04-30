@@ -4,7 +4,10 @@
   "description": "A question / answer extrator NODEJs API",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "SET NODE_ENV=development && nodemon ./bin/www",
+    "grunt": "grunt",
+    "start": "node ./bin/www"
   },
   "repository": {
     "type": "git",
@@ -20,5 +23,29 @@
   "bugs": {
     "url": "https://github.com/abhnerAraujo/QAExtractor/issues"
   },
-  "homepage": "https://github.com/abhnerAraujo/QAExtractor#readme"
+  "homepage": "https://github.com/abhnerAraujo/QAExtractor#readme",
+  "dependencies": {
+    "@types/node": "^9.6.7",
+    "body-parser": "^1.18.2",
+    "camel-harness": "^0.8.3",
+    "cookie-parser": "^1.4.3",
+    "errorhandler": "^1.5.0",
+    "express": "^4.16.3",
+    "method-override": "^2.3.10",
+    "morgan": "^1.9.0",
+    "pug": "^2.0.3"
+  },
+  "devDependencies": {
+    "@types/body-parser": "^1.17.0",
+    "@types/cookie-parser": "^1.4.1",
+    "@types/errorhandler": "0.0.32",
+    "@types/method-override": "0.0.31",
+    "@types/morgan": "^1.7.35",
+    "grunt": "^1.0.2",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-watch": "^1.0.1",
+    "grunt-ts": "^6.0.0-beta.19",
+    "nodemon": "^1.17.3",
+    "typescript": "^2.8.3"
+  }
 }
