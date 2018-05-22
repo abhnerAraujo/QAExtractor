@@ -1,5 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const extractor_1 = require("./../lingua/extractor");
+const array_operations_1 = require("./../utils/array.operations");
 const identifier_1 = require("./../lingua/identifier");
 const lingua_1 = require("./../lingua/lingua");
 const route_1 = require("./route");
@@ -14,19 +16,17 @@ class IndexRoute extends route_1.BaseRoute {
         super();
     }
     index(req, res, next) {
-        this.title = "Home | Tour of Heros";
-        let options = {
-            "message": "Welcome to the Tour of Heros"
-        };
         let sentences;
         let lingua = new lingua_1.Lingua('pt');
-        lingua.segmentation("", (stdout) => {
-            sentences = stdout.split("\r\n");
-            console.log(sentences);
-            let identifier = new identifier_1.Identifier(sentences);
-            identifier.startIdentifying();
-            console.log(identifier.getCandidates());
-        });
+        sentences = lingua.segmentation();
+        sentences = array_operations_1.OPERATIONS.clearEmpty(sentences);
+        let identifier = new identifier_1.Identifier(sentences);
+        if (identifier.startIdentifying()) {
+            let candidateSenteces = identifier.getCandidates();
+            let extractor = new extractor_1.Extractor(candidateSenteces);
+            extractor.startExtracting();
+        }
+        res.send({ text: "true" });
     }
 }
 exports.IndexRoute = IndexRoute;

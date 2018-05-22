@@ -28,6 +28,11 @@ exports.RULES = {
     why: [
         " porque ",
         " pois ",
+        " por ",
+        "Dado o ",
+        "Dado a ",
+        "Dado os ",
+        "Dado as "
     ],
     who: [
         "foi quem ",
@@ -37,8 +42,39 @@ exports.RULES = {
         "foi a ",
     ],
     when: [
-        " durante",
-        " meados"
+        "durante",
+        "meados"
     ],
     what: [],
+};
+exports.FILTER_RULES = {
+    where: [
+        "Onde",
+        "não encontrado",
+        "onde não",
+        "exceto onde",
+        "para onde",
+        "de onde",
+        "até onde",
+        "por onde"
+    ]
+};
+exports.MUST_CAPITALIZE = {
+    where: [
+        "cidade",
+        "cidades",
+        "zona rural",
+        "zonas rurais",
+        "bairro",
+        "bairros",
+        "estado",
+        "estados",
+        "país",
+        "países",
+        "centro",
+        "área",
+        "áreas",
+        "agreste",
+        "aldeia",
+    ]
 };

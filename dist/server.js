@@ -8,11 +8,13 @@ const logger = require("morgan");
 const path = require("path");
 const errorHandler = require("errorhandler");
 const methodOverride = require("method-override");
+const paths_1 = require("./constants/paths");
 class Server {
     static bootstrap() {
         return new Server();
     }
     constructor() {
+        paths_1.PATHS.__basedir = __dirname;
         console.log("server constructor");
         this.app = express();
         this.config();

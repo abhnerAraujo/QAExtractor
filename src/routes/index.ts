@@ -1,3 +1,5 @@
+import { Extractor } from './../lingua/extractor';
+import { OPERATIONS } from './../utils/array.operations';
 import { Identifier } from './../lingua/identifier';
 import { Lingua } from './../lingua/lingua';
 import { NextFunction, Request, Response, Router } from "express";
@@ -48,24 +50,18 @@ export class IndexRoute extends BaseRoute {
    * @next {NextFunction} Execute the next method.
    */
   public index(req: Request, res: Response, next: NextFunction) {
-    //set custom title
-    this.title = "Home | Tour of Heros";
-
-    //set options
-    let options: Object = {
-      "message": "Welcome to the Tour of Heros"
-    };
 
     let sentences;
     let lingua: Lingua = new Lingua('pt');
-    lingua.segmentation("", (stdout) => {
-      sentences = stdout.split("\r\n")
-      console.log(sentences)
-      let identifier: Identifier = new Identifier(sentences);
-      identifier.startIdentifying();
-      console.log(identifier.getCandidates());
-    })
-    //render template
-    // this.render(req, res, "index", options);
+    sentences = lingua.segmentation();
+    sentences = OPERATIONS.clearEmpty(sentences);
+    let identifier: Identifier = new Identifier(sentences);
+    if(identifier.startIdentifying()){
+      let candidateSenteces = identifier.getCandidates();
+      let extractor = new Extractor(candidateSenteces)
+      extractor.startExtracting();
+    }
+    res.send({text:"true"});
+      // console.log(identifier.getCandidates());
   }
 }

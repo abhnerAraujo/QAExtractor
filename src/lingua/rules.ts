@@ -27,6 +27,10 @@ export const RULES = {
         " porque ",
         " pois ",
         " por ",
+        "Dado o ",
+        "Dado a ",
+        "Dado os ",
+        "Dado as "
     ],
     who: [
         "foi quem ",
@@ -42,4 +46,37 @@ export const RULES = {
     what: [
         
     ],
+}
+
+export const FILTER_RULES = {
+    where: [
+        "Onde",
+        "não encontrado",
+        "onde não",
+        "exceto onde",
+        "para onde",
+        "de onde",
+        "até onde",
+        "por onde"
+    ]
+}
+
+export const MUST_CAPITALIZE = {
+    where: [
+        "cidade",
+        "cidades",
+        "zona rural",
+        "zonas rurais",
+        "bairro",
+        "bairros",
+        "estado",
+        "estados",
+        "país",
+        "países",
+        "centro",
+        "área",
+        "áreas",
+        "agreste",
+        "aldeia",
+    ]
 }

@@ -6,6 +6,7 @@ import * as logger from "morgan";
 import * as path from "path";
 import errorHandler = require("errorhandler");
 import methodOverride = require("method-override");
+import { PATHS } from './constants/paths';
 
 /**
  * The server.
@@ -35,6 +36,7 @@ export class Server {
    * @constructor
    */
   constructor() {
+    PATHS.__basedir = __dirname;
     console.log("server constructor")
     //create expressjs application
     this.app = express();
