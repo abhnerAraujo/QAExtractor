@@ -60,8 +60,9 @@ export class IndexRoute extends BaseRoute {
       let candidateSenteces = identifier.getCandidates();
       let extractor = new Extractor(candidateSenteces)
       extractor.startExtracting();
+      res.send({data:extractor.getExtractedQuestions()});
     }
-    res.send({text:"true"});
+    res.send({text:"false"});
       // console.log(identifier.getCandidates());
   }
 }

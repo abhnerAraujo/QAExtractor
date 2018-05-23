@@ -25,8 +25,9 @@ class IndexRoute extends route_1.BaseRoute {
             let candidateSenteces = identifier.getCandidates();
             let extractor = new extractor_1.Extractor(candidateSenteces);
             extractor.startExtracting();
+            res.send({ data: extractor.getExtractedQuestions() });
         }
-        res.send({ text: "true" });
+        res.send({ text: "false" });
     }
 }
 exports.IndexRoute = IndexRoute;

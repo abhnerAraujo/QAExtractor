@@ -213,5 +213,18 @@ export const EAGLE = {
         category: {
             interjection:"I"
         }
+    },
+    punctuation: {
+        colon:"Fd",
+        comma:"Fc",
+        etc:"Fs",
+        exclamationmark:"Fat",
+        parenthesisOpen:"Fpt",
+        parenthesisClose:"Fpa",
+        percentage:"Ft",
+        period:"Fp",
+        questionmark:"Fit",
+        semicolon:"Fx",
+        slash:"Fh",
     }
 }

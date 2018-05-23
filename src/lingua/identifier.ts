@@ -58,7 +58,28 @@ export class Identifier {
         console.log("Class '"+ type + "' has " + this.candidateSentences[type].length + " sentence(s)");
     }
 
-    private hasLoc(sentence:ISentence):boolean{
+    private hasDate(sentence:ISentence):boolean{
+        try{
+            let _lingua = new Lingua("pt");
+            let result = [];
+            result = _lingua.tagger(sentence.text);
+            if(result && result.length > 0){
+                for(let tag of result){
+                    if(tag){
+                        let _tagged = this.createTaggedObject(sentence, tag)
+                        if(_tagged.tags[0] == EAGLE.date.category.date) {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }catch(err){
+            console.log(err);
+        }
+    }
+
+    private hasLocation(sentence:ISentence):boolean{
         try{
             let _lingua = new Lingua("pt");
             let result = [];
@@ -80,7 +101,10 @@ export class Identifier {
     }
 
     private isValidSentenceForType(sentence:ISentence, type:string):boolean{
-        if (type == question.where && this.hasLoc(sentence)){
+        if(type == question.when && this.hasDate(sentence)){
+            return true;
+        }
+        if(type == question.where && this.hasLocation(sentence)){
             return true;
         }
         for(let rule of RULES[type]){

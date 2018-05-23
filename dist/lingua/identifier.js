@@ -50,7 +50,28 @@ class Identifier {
         }
         console.log("Class '" + type + "' has " + this.candidateSentences[type].length + " sentence(s)");
     }
-    hasLoc(sentence) {
+    hasDate(sentence) {
+        try {
+            let _lingua = new lingua_1.Lingua("pt");
+            let result = [];
+            result = _lingua.tagger(sentence.text);
+            if (result && result.length > 0) {
+                for (let tag of result) {
+                    if (tag) {
+                        let _tagged = this.createTaggedObject(sentence, tag);
+                        if (_tagged.tags[0] == eagle_1.EAGLE.date.category.date) {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
+    hasLocation(sentence) {
         try {
             let _lingua = new lingua_1.Lingua("pt");
             let result = [];
@@ -72,7 +93,10 @@ class Identifier {
         }
     }
     isValidSentenceForType(sentence, type) {
-        if (type == question_classes_1.QUESTION_CLASSES.where && this.hasLoc(sentence)) {
+        if (type == question_classes_1.QUESTION_CLASSES.when && this.hasDate(sentence)) {
+            return true;
+        }
+        if (type == question_classes_1.QUESTION_CLASSES.where && this.hasLocation(sentence)) {
             return true;
         }
         for (let rule of rules_1.RULES[type]) {

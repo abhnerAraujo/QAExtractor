@@ -19,6 +19,8 @@ export class Extractor {
         when:[],
     };
 
+    private extractedSentences:IQASentence[] = [];
+
     constructor(candidates: ICandidatesObject){
         this.candidates = candidates;
     }
@@ -41,13 +43,51 @@ export class Extractor {
 
     public startExtracting(){
         this.tagSentences(question.where);
-        this.tagSentences(question.what);
+        // this.tagSentences(question.who);
         this.tagSentences(question.when);
-        this.tagSentences(question.why);
-        console.log(this.extractWhereQuestion(this.taggedSentences.where));
+        // this.tagSentences(question.why);
+        this.extractedSentences = this.extractedSentences.concat(this.extractWhereQuestion(this.taggedSentences.where));
+        this.extractedSentences = this.extractedSentences.concat(this.extractWhenQuestion(this.taggedSentences.when));
     }
 
-    extractWhereQuestion(sentencesTagged:Array<ITagged[]>):IQASentence[]{
+    public getExtractedQuestions(){
+        return this.extractedSentences;
+    }
+
+    private extractWhenQuestion(sentencesTagged:Array<ITagged[]>):IQASentence[]{
+        let _qaSentences: Array<IQASentence> = [];
+        for(let sentence of sentencesTagged){
+            let _qaSentence: IQASentence = {question: "", answer: [""], sentence: sentence[0].sentence}
+            let dateIndex:number = this.findDateIndex(sentence);
+
+            if(dateIndex > 0) {
+                if(this.isAdposition(sentence[dateIndex - 1])){
+                    let adpositionIndex = dateIndex - 1;
+                    let question = sentence.splice(0, adpositionIndex);
+                    let answer = sentence;
+                    _qaSentence.question = `${this.getText(question)}?`;
+                    _qaSentence.answer = [this.getText(answer)];
+                }
+                
+            }
+            _qaSentences.push(_qaSentence)
+        }
+        return _qaSentences;
+    }
+
+    private isAdposition(term:ITagged):boolean{
+        return (term.tags[0] == eagle.adposition.category.adposition)
+        ? true
+        : false
+    }
+
+    private isPunctuation(term:ITagged):boolean{
+        return (term.tags[0] == eagle.punctuation.period || term.tags[0] == eagle.punctuation.comma)
+        ? true
+        : false
+    }
+
+    private extractWhereQuestion(sentencesTagged:Array<ITagged[]>):IQASentence[]{
         let _qaSentences: IQASentence[] = [];
         for(let sentence of sentencesTagged){
             let _qaSentence: IQASentence = {question: "", answer: [""], sentence: sentence[0].sentence}
@@ -64,7 +104,7 @@ export class Extractor {
                     let question = this.getText(sentence.splice(0, spliceIndex + 1));
                     question = question + "?";
                     let answer = this.getText(sentence);
-                    _qaSentence.answer.push(answer);
+                    _qaSentence.answer = [answer];
                     _qaSentence.question = question;
                 }
             }
@@ -83,6 +123,16 @@ export class Extractor {
         text = text.replace(/#/g, ",")
         return text;
     }
+
+    private findDateIndex(taggedSentences:ITagged[]):number {
+        for(let index = 0; index < taggedSentences.length; index++){
+            if(taggedSentences[index].tags[0] == eagle.date.category.date){
+                return index;
+            }
+        }
+        return -1;
+    }
+
 
     private findLocationIndex(taggedSentences:ITagged[]):number{
         let index = 0;
